@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    var linkedIn = Umbraco.Media(Guid.Parse("661afd76-b12e-4668-9a32-c8039fb923be"));
+    bool hasLinkedIn = linkedIn != null;
+
+    var github = Umbraco.Media(Guid.Parse("27e08c7d-2568-4997-941d-602d705ca5bb"));
+    bool hasgithub = github != null;
+}
+
+<div class="logo">
+    @if (hasLinkedIn)
+    {
+        <a href="https://www.linkedin.com/in/mikael-therkelsen-09273015a/" class="logo">
+            <img height="30" width="30" src="@linkedIn.Url()" />
+        </a>
+    }
+
+    @if (hasgithub)
+    {
+        <a href="https://github.com/reptinias" class="logo">
+            <img height="30" width="30" src="@github.Url()" />
+        </a>
+    }
+</div>

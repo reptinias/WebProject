@@ -36,6 +36,16 @@
 		color: black;
 	}
 
+	footer {
+		background-color: #373838;
+		padding: 20px 20px 20px;
+		color: white;
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		text-align: center;
+	}
 </style>
 
 <head>
@@ -48,9 +58,10 @@
 
 <body>
 	<div class="PrimNav">
+	    
 		@{
-			var selection = Umbraco.Content(Guid.Parse("bd7e4956-fb4f-4565-966e-d8e82d87780d"))
-			.ChildrenOfType("contentPage")
+			var selection = Umbraco.ContentAtRoot().FirstOrDefault()
+			.Children()
 			.Where(x => x.IsVisible());
 		}
 		<ul class="navUL">
@@ -71,5 +82,10 @@
 			}
 		</ul>
 	</div>
+
 	@RenderBody()
+
+	<footer>
+	    @await Html.PartialAsync("FooterLinkPartial")
+	</footer>
 </body>

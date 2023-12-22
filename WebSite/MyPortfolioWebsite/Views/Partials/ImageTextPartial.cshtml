@@ -1,0 +1,59 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core.Models;
+
+<style>
+    div.partialWrapper{
+        color:white;
+        background-color: #373838;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 20vw; /* For 100% screen height */
+        margin-right: 20vw; /* For 100% screen height */
+        height:auto
+    }
+
+    div.partialWrapper div{
+        padding:20px;
+        width: auto;
+        height: auto;
+    }
+
+    img.scalledImage {
+        height: 30vmin;
+        width: 30vmin;
+    }
+</style>
+
+
+<div class="partialWrapper">
+    @if (@Model.Value("imageRight").ToString() == "True")
+    {
+        <div class="textWrapper">
+            @Model.Value("tekstIndhold")
+        </div>
+        <div class="imagesWrapper">
+            @{
+                var image = Model.Value<MediaWithCrops>("billedeIndhold");
+                if (image != null)
+                {
+                    <img class="scalledImage" src="@image.MediaUrl()" alt="" />
+                }
+            }
+        </div>
+    }
+    else{
+        <div class="imagesWrapper">
+            @{
+                var image = Model.Value<MediaWithCrops>("billedeIndhold");
+                if (image != null)
+                {
+                    <img class="scalledImage" src="@image.MediaUrl()" alt="" />
+                }
+            }
+        </div>
+        <div class="textWrapper">
+            @Model.Value("tekstIndhold")
+        </div>
+    }
+</div>
