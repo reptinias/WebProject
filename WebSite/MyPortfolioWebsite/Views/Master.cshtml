@@ -1,0 +1,75 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+<style>
+	div.PrimNav {
+		text-align: center;
+	}
+
+	ul.navUL {
+		display: inline-block;
+		text-align: center;
+		list-style: none;
+	}
+
+	ul.navUL li {
+		display: inline-block;
+		color: gray;
+		padding: 10px;
+	}
+
+	ul.navUL a{
+		text-decoration: none;
+		font-family: "Lucida Console", "Courier New", monospace;
+		color:gray
+	}
+
+	ul.navUL a:hover {
+		color: black;
+	}
+
+	ul.navUL a.active{
+		text-decoration: none;
+		color: black;
+	}
+
+</style>
+
+<head>
+	@if (@Model.Url() == "/")
+	{
+		Context.Response.Redirect(@Model.Url() + "forside");
+	}
+	<title>@Model.Name</title>
+</head>
+
+<body>
+	<div class="PrimNav">
+		@{
+			var selection = Umbraco.Content(Guid.Parse("c3714b4c-2b11-481d-91fe-c38a6ac229e0"))
+			.ChildrenOfType("ContentPage")
+			.Where(x => x.IsVisible());
+		}
+		<ul class="navUL">
+			@foreach (var item in selection)
+			{
+				if (@Model.Url().Split("/")[1].ToLower().Replace("-", " ") == item.Name().ToLower())
+				{
+					<li>
+						<a class="active" href="@item.Url()">@item.Name()</a>
+					</li>
+				}
+				else
+				{
+					<li>
+						<a href="@item.Url()">@item.Name()</a>
+					</li>
+				}
+			}
+		</ul>
+	</div>
+	@RenderBody()
+</body>
